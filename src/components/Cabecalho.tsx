@@ -15,13 +15,13 @@ export default function Cabecalho({ cabecalho }: CabecalhoProps) {
 }
 const style = StyleSheet.create({
   container: {
-    flex: 0.01,
+    flex: 0.2,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 50,
     gap: 20,
     backgroundColor: "#A35635",
+    width: "100%",
   },
   text: {
     color: "#ffff",

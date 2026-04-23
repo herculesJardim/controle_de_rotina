@@ -1,10 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { DiaType } from "../tipos/types";
 
-export default function Dia() {
+type DiaProps = {
+  dia: DiaType;
+};
+export default function Dia({ dia }: DiaProps) {
   return (
     <TouchableOpacity style={style.container}>
-      <Text>17</Text>
-      <Text>s</Text>
+      <Text style={{ fontSize: 14 }}>{dia.diaMes}</Text>
+      <Text style={{ fontSize: 10 }}>{dia.diaSemana}</Text>
     </TouchableOpacity>
   );
 }

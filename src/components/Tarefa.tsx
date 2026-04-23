@@ -1,8 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-export default function Tarefa() {
+import { StyleSheet, Text, View } from "react-native";
+import { TarefaType } from "../tipos/types";
+type TarefaProps = {
+  tarefa: TarefaType;
+};
+export default function Tarefa({ tarefa }: TarefaProps) {
   return (
-    <TouchableOpacity style={style.container}>
+    <View style={style.container}>
       <View style={style.hora}>
         <Text
           style={{
@@ -10,24 +13,22 @@ export default function Tarefa() {
             color: "#837575",
           }}
         >
-          10:00
+          {tarefa.horario}
         </Text>
       </View>
 
-      <View>
-        <Text style={style.title}>Reunião</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={style.title}>{tarefa.title}</Text>
         <View style={style.description}>
-          <Text style={style.text}>
-            Tarefas Realizadas bla lbalblablabl abllba sjjdsa
-          </Text>
+          <Text style={style.text}>{tarefa.descricao}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 const style = StyleSheet.create({
   container: {
-    width: 251,
+    width: "90%",
     height: 54,
     backgroundColor: "#D9D9D9",
     borderRadius: 12,
@@ -39,16 +40,14 @@ const style = StyleSheet.create({
     fontWeight: "bold",
   },
   description: {
-    width: 110,
-    height: 19,
+    flex: 1,
   },
   text: {
     fontSize: 8,
     color: "#837575",
   },
   hora: {
-    width: 50,
-    height: 50,
+    flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
   },
