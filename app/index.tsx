@@ -2,46 +2,77 @@ import Cabecalho from "@/src/components/Cabecalho";
 import Dia from "@/src/components/Dia";
 import Progresso from "@/src/components/Progresso";
 import Tarefa from "@/src/components/Tarefa";
-import { StyleSheet, Text, View } from "react-native";
+import { DiaType, TarefaType } from "@/src/tipos/types";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
+  const diasSemana: DiaType[] = [
+    { diaMes: "17", diaSemana: "Sex" },
+    { diaMes: "18", diaSemana: "Sab" },
+    { diaMes: "19", diaSemana: "Dom" },
+    { diaMes: "20", diaSemana: "Seg" },
+    { diaMes: "21", diaSemana: "Ter" },
+    { diaMes: "22", diaSemana: "Qua" },
+    { diaMes: "17", diaSemana: "Sex" },
+    { diaMes: "18", diaSemana: "Sab" },
+    { diaMes: "19", diaSemana: "Dom" },
+    { diaMes: "20", diaSemana: "Seg" },
+    { diaMes: "21", diaSemana: "Ter" },
+    { diaMes: "22", diaSemana: "Qua" },
+  ];
+  const tarefas: TarefaType[] = [
+    {
+      horario: "10:00",
+      title: "Reunião da Turma",
+      descricao: "Reunião para decidir o que será da blusa...",
+    },
+    {
+      horario: "12:00",
+      title: "Preparar Almoço",
+      descricao: "Reunião para decidir o que será da blusa ...",
+    },
+    {
+      horario: "18:00",
+      title: "Arrumar para Fac...",
+      descricao: "Reunião para decidir o que será da blusa...",
+    },
+    {
+      horario: "18:00",
+      title: "Arrumar para Fac...",
+      descricao: "Reunião para decidir o que será da blusa...",
+    },
+    {
+      horario: "18:00",
+      title: "Arrumar para Fac...",
+      descricao: "Reunião para decidir o que será da blusa...",
+    },
+  ];
   return (
     <View style={style.container}>
       <Cabecalho cabecalho={{ title: "Gerenciador Diário" }} />
       <View style={style.content}>
         <Text style={style.label}> Abril, 2026</Text>
         <View style={style.dias}>
-          <Dia dia={{ diaMes: "17", diaSemana: "Sex" }} />
-          <Dia dia={{ diaMes: "18", diaSemana: "Sab" }} />
-          <Dia dia={{ diaMes: "19", diaSemana: "Dom" }} />
-          <Dia dia={{ diaMes: "20", diaSemana: "Seg" }} />
-          <Dia dia={{ diaMes: "21", diaSemana: "Ter" }} />
-          <Dia dia={{ diaMes: "22", diaSemana: "Qua" }} />
+          <FlatList
+            contentContainerStyle={{ gap: 2 }}
+            data={diasSemana}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Dia dia={item} />}
+          />
         </View>
         <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 18 }} />
         <View style={style.label}>
           <Text>Minhas Tarefas</Text>
         </View>
-        <Tarefa
-          tarefa={{
-            horario: "10:00",
-            title: "Reunião da Turma",
-            descricao: "Reunião para decidir o que será da blusa...",
-          }}
-        />
-        <Tarefa
-          tarefa={{
-            horario: "12:00",
-            title: "Preparar Almoço",
-            descricao: "Reunião para decidir o que será da blusa ...",
-          }}
-        />
-        <Tarefa
-          tarefa={{
-            horario: "18:00",
-            title: "Arrumar para Fac...",
-            descricao: "Reunião para decidir o que será da blusa...",
-          }}
+        <FlatList
+          style={{ flex: 1, alignSelf: "stretch" }}
+          contentContainerStyle={{ gap: 5 }}
+          showsHorizontalScrollIndicator={false}
+          data={tarefas}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => <Tarefa tarefa={item} />}
         />
       </View>
     </View>
@@ -57,23 +88,28 @@ const style = StyleSheet.create({
   content: {
     backgroundColor: "#ffff",
     gap: 10,
+    padding: 5,
     flex: 1,
+    alignSelf: "stretch",
     borderRadius: 12,
     elevation: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    width: "100%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
   dias: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "90%",
+    justifyContent: "space-around",
+    height: 80,
+    alignSelf: "stretch",
+    gap: 2,
   },
   label: {
-    width: "90%",
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
 });

@@ -41,3 +41,6 @@ app-example
 # generated native folders
 /ios
 /android
+
+#teste files
+src/components/Carrocel.tsx

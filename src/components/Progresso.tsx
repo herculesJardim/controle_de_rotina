@@ -21,8 +21,8 @@ export default function Progresso({ tarefa }: ProgressoProps) {
 }
 const style = StyleSheet.create({
   container: {
-    width: "90%",
-    height: 54,
+    alignSelf: "stretch",
+    height: 70,
     backgroundColor: "#D9D9D9",
     borderRadius: 12,
     flexDirection: "row",

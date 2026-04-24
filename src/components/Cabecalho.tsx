@@ -5,26 +5,30 @@ import Avatar from "./Avatar";
 type CabecalhoProps = {
   cabecalho: CabecalhoType;
 };
+
 export default function Cabecalho({ cabecalho }: CabecalhoProps) {
   return (
     <View style={style.container}>
-      <Avatar />
-      <Text style={style.text}>{cabecalho.title}</Text>
+      <View>
+        <Avatar />
+      </View>
+      <View>
+        <Text style={style.text}>{cabecalho.title}</Text>
+      </View>
     </View>
   );
 }
 const style = StyleSheet.create({
   container: {
-    flex: 0.2,
+    height: 80,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    gap: 20,
     backgroundColor: "#A35635",
-    width: "100%",
+    alignSelf: "stretch",
   },
   text: {
     color: "#ffff",
-    fontSize: 16,
+    fontSize: 20,
   },
 });

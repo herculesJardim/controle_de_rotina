@@ -14,8 +14,9 @@ export default function Dia({ dia }: DiaProps) {
 }
 const style = StyleSheet.create({
   container: {
-    width: 35,
-    height: 55,
+    height: 70,
+    gap: 5,
+    padding: 20,
     elevation: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
