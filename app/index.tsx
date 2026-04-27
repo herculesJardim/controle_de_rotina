@@ -39,7 +39,8 @@ export default function Index() {
     {
       horario: "18:00",
       title: "Arrumar para Fac...",
-      descricao: "Reunião para decidir o que será da blusa...",
+      descricao:
+        "So now we know styling the bars. But did you observe that the styles we supply through props are applied to all the bars? What if we want some styles to be applied to only specific bars?",
     },
     {
       horario: "18:00",
@@ -62,7 +63,7 @@ export default function Index() {
             renderItem={({ item }) => <Dia dia={item} />}
           />
         </View>
-        <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 18 }} />
+        <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 20 }} />
         <View style={style.label}>
           <Text>Minhas Tarefas</Text>
         </View>

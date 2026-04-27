@@ -9,7 +9,7 @@ export default function Tarefa({ tarefa }: TarefaProps) {
       <View style={style.hora}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 18,
             color: "#837575",
           }}
         >
@@ -17,10 +17,12 @@ export default function Tarefa({ tarefa }: TarefaProps) {
         </Text>
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
         <Text style={style.title}>{tarefa.title}</Text>
         <View style={style.description}>
-          <Text style={style.text}>{tarefa.descricao}</Text>
+          <Text style={style.text} numberOfLines={2} ellipsizeMode="tail">
+            {tarefa.descricao}
+          </Text>
         </View>
       </View>
     </View>
@@ -29,7 +31,7 @@ export default function Tarefa({ tarefa }: TarefaProps) {
 const style = StyleSheet.create({
   container: {
     alignSelf: "stretch",
-    height: 70,
+    height: 100,
     backgroundColor: "#D9D9D9",
     borderRadius: 12,
     flexDirection: "row",
@@ -37,13 +39,13 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontWeight: "bold",
+    fontSize: 16,
   },
   description: {
-    flex: 1,
+    width: "80%",
   },
   text: {
-    fontSize: 8,
+    fontSize: 12,
     color: "#837575",
   },
   hora: {
