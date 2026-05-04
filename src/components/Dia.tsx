@@ -4,7 +4,7 @@ import { DiaType } from "../tipos/types";
 type DiaProps = {
   dia: DiaType;
 };
-export default function Dia({ dia }: DiaProps) {
+export default function Dia({ dia}: DiaProps) {
   return (
     <TouchableOpacity style={style.container}>
       <Text style={{ fontSize: 14 }}>{dia.diaMes}</Text>

@@ -1,12 +1,13 @@
+import Adicionar from "@/src/components/Adicionar";
 import Cabecalho from "@/src/components/Cabecalho";
-import Dia from "@/src/components/Dia";
+import CarrocelDias from "@/src/components/CarrocelDias";
 import Progresso from "@/src/components/Progresso";
 import Tarefa from "@/src/components/Tarefa";
-import { DiaType, TarefaType } from "@/src/tipos/types";
+import { TarefaType } from "@/src/tipos/types";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
-  const diasSemana: DiaType[] = [
+  /*const diasSemana: DiaType[] = [
     { diaMes: "17", diaSemana: "Sex" },
     { diaMes: "18", diaSemana: "Sab" },
     { diaMes: "19", diaSemana: "Dom" },
@@ -19,7 +20,7 @@ export default function Index() {
     { diaMes: "20", diaSemana: "Seg" },
     { diaMes: "21", diaSemana: "Ter" },
     { diaMes: "22", diaSemana: "Qua" },
-  ];
+  ];*/
   const tarefas: TarefaType[] = [
     {
       horario: "10:00",
@@ -54,14 +55,15 @@ export default function Index() {
       <View style={style.content}>
         <Text style={style.label}> Abril, 2026</Text>
         <View style={style.dias}>
-          <FlatList
+          <CarrocelDias />
+          {/*<FlatList
             contentContainerStyle={{ gap: 2 }}
             data={diasSemana}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <Dia dia={item} />}
-          />
+          />*/}
         </View>
         <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 20 }} />
         <View style={style.label}>
@@ -75,6 +77,7 @@ export default function Index() {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <Tarefa tarefa={item} />}
         />
+        <Adicionar />
       </View>
     </View>
   );
@@ -106,7 +109,6 @@ const style = StyleSheet.create({
     justifyContent: "space-around",
     height: 80,
     alignSelf: "stretch",
-    gap: 2,
   },
   label: {
     alignSelf: "stretch",
