@@ -1,11 +1,9 @@
 import Adicionar from "@/src/components/Adicionar";
-import Cabecalho from "@/src/components/Cabecalho";
 import CarrocelDias from "@/src/components/CarrocelDias";
 import Progresso from "@/src/components/Progresso";
 import Tarefa from "@/src/components/Tarefa";
 import { TarefaType } from "@/src/tipos/types";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-
 export default function Index() {
   /*const diasSemana: DiaType[] = [
     { diaMes: "17", diaSemana: "Sex" },
@@ -51,7 +49,6 @@ export default function Index() {
   ];
   return (
     <View style={style.container}>
-      <Cabecalho cabecalho={{ title: "Gerenciador Diário" }} />
       <View style={style.content}>
         <Text style={style.label}> Abril, 2026</Text>
         <View style={style.dias}>
@@ -95,7 +92,8 @@ const style = StyleSheet.create({
     padding: 5,
     flex: 1,
     alignSelf: "stretch",
-    borderRadius: 12,
+    borderTopRightRadius: 12,
+    borderTopLeftRadius: 12,
     elevation: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },

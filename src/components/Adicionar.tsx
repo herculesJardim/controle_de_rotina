@@ -1,8 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { StyleSheet, TouchableOpacity } from "react-native";
 export default function Adicionar() {
   return (
-    <TouchableOpacity style={style.container}>
+    <TouchableOpacity
+      style={style.container}
+      onPress={() => router.push("/cadastro_tarefa")}
+    >
       <Ionicons name="add" size={40} color="white" />
     </TouchableOpacity>
   );
@@ -10,7 +14,7 @@ export default function Adicionar() {
 const style = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 20,
+    bottom: 50,
     right: 20,
 
     width: 60,
