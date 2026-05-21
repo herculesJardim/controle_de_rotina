@@ -20,22 +20,24 @@ export default function Progresso({ tarefa }: ProgressoProps) {
   ];
   return (
     <TouchableOpacity style={style.container}>
-      <PieChart
-        data={pieData}
-        donut
-        radius={45}
-        innerRadius={35}
-        showGradient={false}
-        sectionAutoFocus
-        centerLabelComponent={() => {
-          return (
-            <Text style={{ fontSize: 18, color: "#ff5c00" }}>
-              {porcentagemFeita}%
-            </Text>
-          );
-        }}
-      />
-      <View>
+      <View style={style.graphic}>
+        <PieChart
+          data={pieData}
+          donut
+          radius={45}
+          innerRadius={35}
+          showGradient={false}
+          sectionAutoFocus
+          centerLabelComponent={() => {
+            return (
+              <Text style={{ fontSize: 18, color: "#ff5c00" }}>
+                {porcentagemFeita}%
+              </Text>
+            );
+          }}
+        />
+      </View>
+      <View style={style.content}>
         <Text style={style.title}>Progresso Semanal</Text>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <Text style={style.painel}>
@@ -48,8 +50,15 @@ export default function Progresso({ tarefa }: ProgressoProps) {
   );
 }
 const style = StyleSheet.create({
+  graphic: {
+    width: "33%",
+    alignItems: "center",
+  },
+  content: {
+    width: "67%",
+  },
   container: {
-    alignSelf: "stretch",
+    width: "95%",
     height: 100,
     backgroundColor: "#D9D9D9",
     borderRadius: 12,

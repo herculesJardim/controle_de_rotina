@@ -16,6 +16,12 @@ export default function RootLayout() {
           ),
         }}
       />
+      <Stack.Screen
+        name="cadastro_tarefa"
+        options={{
+          header: () => <Cabecalho cabecalho={{ title: "Nova tarefa" }} />,
+        }}
+      />
       <Stack.Screen name="login" options={{ headerShown: false }} />
     </Stack>
   );

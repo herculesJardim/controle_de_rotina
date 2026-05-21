@@ -9,10 +9,10 @@ type CabecalhoProps = {
 export default function Cabecalho({ cabecalho }: CabecalhoProps) {
   return (
     <View style={style.container}>
-      <View>
+      <View style={style.avatar}>
         <Avatar />
       </View>
-      <View>
+      <View style={style.titulo}>
         <Text style={style.text}>{cabecalho.title}</Text>
       </View>
     </View>
@@ -20,12 +20,21 @@ export default function Cabecalho({ cabecalho }: CabecalhoProps) {
 }
 const style = StyleSheet.create({
   container: {
-    height: 80,
+    paddingTop: 50,
+    height: 100,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#A35635",
+    backgroundColor: "#197293",
     alignSelf: "stretch",
+  },
+  titulo: {
+    alignItems: "center",
+    width: "80%",
+  },
+  avatar: {
+    alignItems: "center",
+    width: "20%",
   },
   text: {
     color: "#ffff",

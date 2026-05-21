@@ -21,13 +21,13 @@ export default function RecurrenceSelector() {
         <Checkbox
           status={enabled ? "checked" : "unchecked"}
           onPress={() => setEnabled(!enabled)}
-          color="#B55D33"
-          uncheckedColor="#B55D33"
+          color="#197293"
+          uncheckedColor="#197293"
         />
 
         <Text
           style={{
-            color: "#B55D33",
+            color: "#197293",
             fontSize: 22,
           }}
         >
@@ -40,33 +40,32 @@ export default function RecurrenceSelector() {
         <View
           style={{
             marginLeft: 20,
-            marginTop: 10,
+            marginTop: 5,
             gap: 2,
           }}
         >
           <Checkbox.Item
-            
             label="Diária"
             status={daily ? "checked" : "unchecked"}
             onPress={() => setDaily(!daily)}
-            color="#B55D33"
-            labelStyle={{ color: "#B55D33" }}
+            color="#197293"
+            labelStyle={{ color: "#197293" }}
           />
 
           <Checkbox.Item
             label="Semanal"
             status={weekly ? "checked" : "unchecked"}
             onPress={() => setWeekly(!weekly)}
-            color="#B55D33"
-            labelStyle={{ color: "#B55D33" }}
+            color="#197293"
+            labelStyle={{ color: "#197293" }}
           />
 
           <Checkbox.Item
             label="Mensal"
             status={monthly ? "checked" : "unchecked"}
             onPress={() => setMonthly(!monthly)}
-            color="#B55D33"
-            labelStyle={{ color: "#B55D33" }}
+            color="#197293"
+            labelStyle={{ color: "#197293" }}
           />
         </View>
       )}

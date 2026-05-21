@@ -1,13 +1,15 @@
+import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { Button, IconButton, TextInput } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const [focused, setFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   return (
-    <View style={style.container}>
+    <SafeAreaView style={style.container}>
       <TextInput
         placeholder="Email"
         placeholderTextColor="#aaa"
@@ -36,7 +38,7 @@ export default function Login() {
       <Button
         mode="contained-tonal"
         style={style.button}
-        onPress={() => console.log("login")}
+        onPress={() => router.push("/")}
       >
         <Text style={style.button}>Login</Text>
       </Button>
@@ -53,7 +55,7 @@ export default function Login() {
         size={30}
         onPress={() => console.log("Pressed")}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 const style = StyleSheet.create({
@@ -62,7 +64,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    backgroundColor: "#ddb7a7",
+    backgroundColor: "#38927e",
   },
   input: {
     borderBottomWidth: 1.5,

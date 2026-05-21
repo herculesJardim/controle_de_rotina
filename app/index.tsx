@@ -4,21 +4,8 @@ import Progresso from "@/src/components/Progresso";
 import Tarefa from "@/src/components/Tarefa";
 import { TarefaType } from "@/src/tipos/types";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
-  /*const diasSemana: DiaType[] = [
-    { diaMes: "17", diaSemana: "Sex" },
-    { diaMes: "18", diaSemana: "Sab" },
-    { diaMes: "19", diaSemana: "Dom" },
-    { diaMes: "20", diaSemana: "Seg" },
-    { diaMes: "21", diaSemana: "Ter" },
-    { diaMes: "22", diaSemana: "Qua" },
-    { diaMes: "17", diaSemana: "Sex" },
-    { diaMes: "18", diaSemana: "Sab" },
-    { diaMes: "19", diaSemana: "Dom" },
-    { diaMes: "20", diaSemana: "Seg" },
-    { diaMes: "21", diaSemana: "Ter" },
-    { diaMes: "22", diaSemana: "Qua" },
-  ];*/
   const tarefas: TarefaType[] = [
     {
       horario: "10:00",
@@ -48,45 +35,35 @@ export default function Index() {
     },
   ];
   return (
-    <View style={style.container}>
+    <SafeAreaView style={style.container}>
       <View style={style.content}>
-        <Text style={style.label}> Abril, 2026</Text>
         <View style={style.dias}>
           <CarrocelDias />
-          {/*<FlatList
-            contentContainerStyle={{ gap: 2 }}
-            data={diasSemana}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Dia dia={item} />}
-          />*/}
         </View>
         <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 20 }} />
         <View style={style.label}>
           <Text>Minhas Tarefas</Text>
         </View>
         <FlatList
-          style={{ flex: 1, alignSelf: "stretch" }}
+          style={{ flex: 1, width: "95%" }}
           contentContainerStyle={{ gap: 5 }}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={tarefas}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <Tarefa tarefa={item} />}
         />
         <Adicionar />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#A35635",
+    backgroundColor: "#197293",
   },
   content: {
+    paddingTop: 20,
     backgroundColor: "#ffff",
     gap: 10,
     padding: 5,
@@ -104,12 +81,11 @@ const style = StyleSheet.create({
   },
   dias: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    height: 80,
+    height: 150,
     alignSelf: "stretch",
   },
   label: {
-    alignSelf: "stretch",
+    width: "90%",
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },

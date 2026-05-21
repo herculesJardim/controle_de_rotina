@@ -40,7 +40,7 @@ export default function TimePickerCustom() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#E89A73",
+    backgroundColor: "#197293",
     padding: 20,
     borderRadius: 20,
     width: "90%",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     marginBottom: 10,
-    color: "#5A2A1A",
+    color: "#ffff",
     fontWeight: "bold",
   },
 
@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
   subLabel: {
     marginTop: 4,
     fontSize: 12,
-    color: "#5A2A1A",
+    color: "#ffff",
   },
 });
