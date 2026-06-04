@@ -2,6 +2,7 @@ export type CabecalhoType = {
   title: string;
 };
 export type TarefaType = {
+  prioridade: 1 | 2 | 3;
   title: string;
   horario: string;
   descricao: string;

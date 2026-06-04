@@ -60,7 +60,7 @@ const style = StyleSheet.create({
   container: {
     width: "95%",
     height: 100,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#ffff",
     borderRadius: 12,
     flexDirection: "row",
     justifyContent: "center",
@@ -68,15 +68,16 @@ const style = StyleSheet.create({
     gap: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: "500",
   },
   text: {
     color: "#6C5E5E",
-    fontSize: 12,
+    fontSize: 16,
   },
 
   painel: {
     color: "#197293",
-    fontSize: 12,
+    fontSize: 16,
   },
 });

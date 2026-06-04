@@ -8,27 +8,32 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   const tarefas: TarefaType[] = [
     {
+      prioridade: 2,
       horario: "10:00",
       title: "Reunião da Turma",
       descricao: "Reunião para decidir o que será da blusa...",
     },
     {
+      prioridade: 3,
       horario: "12:00",
       title: "Preparar Almoço",
       descricao: "Reunião para decidir o que será da blusa ...",
     },
     {
+      prioridade: 1,
       horario: "18:00",
       title: "Arrumar para Fac...",
       descricao: "Reunião para decidir o que será da blusa...",
     },
     {
+      prioridade: 2,
       horario: "18:00",
       title: "Arrumar para Fac...",
       descricao:
         "So now we know styling the bars. But did you observe that the styles we supply through props are applied to all the bars? What if we want some styles to be applied to only specific bars?",
     },
     {
+      prioridade: 1,
       horario: "18:00",
       title: "Arrumar para Fac...",
       descricao: "Reunião para decidir o que será da blusa...",
@@ -42,7 +47,7 @@ export default function Index() {
         </View>
         <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 20 }} />
         <View style={style.label}>
-          <Text>Minhas Tarefas</Text>
+          <Text style={style.labelText}>Minhas Tarefas</Text>
         </View>
         <FlatList
           style={{ flex: 1, width: "95%" }}
@@ -63,8 +68,7 @@ const style = StyleSheet.create({
     backgroundColor: "#197293",
   },
   content: {
-    paddingTop: 20,
-    backgroundColor: "#ffff",
+    backgroundColor: "#d9d9d9",
     gap: 10,
     padding: 5,
     flex: 1,
@@ -78,15 +82,19 @@ const style = StyleSheet.create({
     shadowRadius: 4,
     alignItems: "center",
     justifyContent: "flex-start",
+    paddingBottom: 68,
   },
   dias: {
     flexDirection: "row",
-    height: 150,
     alignSelf: "stretch",
   },
   label: {
     width: "90%",
     justifyContent: "flex-start",
     alignItems: "flex-start",
+  },
+  labelText: {
+    color: "#000000",
+    fontSize: 16,
   },
 });

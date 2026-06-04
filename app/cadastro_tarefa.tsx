@@ -1,6 +1,8 @@
+import { PrioritySelect } from "@/src/components/PrioritySelect";
 import Recurrence from "@/src/components/Recurrence";
 import TimePickerCustom from "@/src/components/TimePickerCustom";
 import { router } from "expo-router";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -15,6 +17,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 export default function CadastroTarefa() {
+  const [priority, setPriority] = useState<"alta" | "media" | "baixa">();
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaView style={style.container} edges={["top", "bottom"]}>
@@ -65,8 +68,11 @@ export default function CadastroTarefa() {
               borderWidth: 2,
             }}
           />
-          <View style={{ alignSelf: "stretch" }}>
+          <View style={style.leftAlignedField}>
             <Recurrence />
+          </View>
+          <View style={[style.leftAlignedField, style.priorityField]}>
+            <PrioritySelect value={priority} onChange={setPriority} />
           </View>
           <View
             style={{
@@ -116,17 +122,24 @@ const style = StyleSheet.create({
     alignSelf: "stretch",
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
-    backgroundColor: "#fff",
+    backgroundColor: "#d9d9d9",
     alignItems: "center",
     gap: 5,
   },
   input: {
     width: "90%",
   },
+  leftAlignedField: {
+    width: "90%",
+    alignItems: "flex-start",
+  },
+  priorityField: {
+    marginBottom: 20,
+  },
   button: {
     backgroundColor: "#1C911C",
     color: "#fff",
-    width: 100,
+    width: 150,
     borderRadius: 2,
   },
 });

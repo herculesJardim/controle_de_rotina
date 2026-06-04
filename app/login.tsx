@@ -13,6 +13,7 @@ export default function Login() {
       <TextInput
         placeholder="Email"
         placeholderTextColor="#aaa"
+        value={email}
         right={<TextInput.Icon icon="account" />}
         style={[
           style.input,
@@ -25,6 +26,7 @@ export default function Login() {
       <TextInput
         placeholder="Senha"
         placeholderTextColor="#aaa"
+        value={senha}
         right={<TextInput.Icon icon="eye-off" />}
         secureTextEntry={true}
         style={[

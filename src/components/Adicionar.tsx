@@ -14,7 +14,7 @@ export default function Adicionar() {
 const style = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 15,
+    bottom: 5,
     right: 15,
 
     width: 60,

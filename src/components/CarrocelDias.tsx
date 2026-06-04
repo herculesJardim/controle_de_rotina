@@ -52,7 +52,7 @@ export default function CalendarioModerno() {
   return (
     <View style={styles.container}>
       <View style={styles.topo}>
-        <Text style={styles.mes}>{meses[dataSelecionada.getMonth()]}</Text>
+        <Text style={styles.mes}>{meses[dataSelecionada.getMonth()]}, </Text>
 
         <Text style={styles.ano}>{dataSelecionada.getFullYear()}</Text>
       </View>
@@ -101,11 +101,11 @@ export default function CalendarioModerno() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#d9d9d9",
 
-    paddingTop: 16,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
 
     borderBottomLeftRadius: 28,
     borderBottomRightRadius: 28,
@@ -113,33 +113,31 @@ const styles = StyleSheet.create({
 
   topo: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "center",
 
     marginBottom: 14,
   },
 
   mes: {
-    color: "#197293",
-    fontSize: 18,
-    fontWeight: "700",
+    color: "#000000",
+    fontSize: 16,
   },
 
   ano: {
-    color: "#197293",
-    fontSize: 18,
-    fontWeight: "700",
+    color: "#000000",
+    fontSize: 16,
   },
 
   lista: {
-    gap: 10,
+    gap: 5,
     paddingHorizontal: 4,
   },
 
   card: {
-    height: 72,
+    height: 75           ,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: "#F8FAFC",
 
@@ -179,8 +177,8 @@ const styles = StyleSheet.create({
   },
 
   diaSemana: {
-    fontSize: 11,
-    fontWeight: "700",
+    fontSize: 12,
+    fontWeight: "500",
 
     color: "#64748B",
 
@@ -188,8 +186,8 @@ const styles = StyleSheet.create({
   },
 
   diaMes: {
-    fontSize: 20,
-    fontWeight: "800",
+    fontSize: 16,
+    fontWeight: "700",
 
     color: "#0F172A",
   },

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { CabecalhoType } from "../tipos/types";
 import Avatar from "./Avatar";
+import { CalendarButton } from "./CalendarButton";
 
 type CabecalhoProps = {
   cabecalho: CabecalhoType;
@@ -14,6 +15,9 @@ export default function Cabecalho({ cabecalho }: CabecalhoProps) {
       </View>
       <View style={style.titulo}>
         <Text style={style.text}>{cabecalho.title}</Text>
+      </View>
+      <View style={style.calendario}>
+        <CalendarButton />
       </View>
     </View>
   );
@@ -30,7 +34,7 @@ const style = StyleSheet.create({
   },
   titulo: {
     alignItems: "center",
-    width: "80%",
+    width: "60%",
   },
   avatar: {
     alignItems: "center",
@@ -39,5 +43,8 @@ const style = StyleSheet.create({
   text: {
     color: "#ffff",
     fontSize: 20,
+  },
+  calendario: {
+    width: "20%",
   },
 });
