@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type PriorityValue = "alta" | "media" | "baixa";
@@ -12,7 +12,7 @@ type PriorityOption = {
 
 const PRIORITIES: PriorityOption[] = [
   { label: "Alta", value: "alta", color: "#FF3B30" },
-  { label: "Média", value: "media", color: "#F2D13D" },
+  { label: "Média", value: "media", color: "#d0cd19" },
   { label: "Baixa", value: "baixa", color: "#34A853" },
 ];
 

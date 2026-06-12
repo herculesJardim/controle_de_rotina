@@ -11,32 +11,32 @@ export default function Index() {
       prioridade: 2,
       horario: "10:00",
       title: "Reunião da Turma",
-      descricao: "Reunião para decidir o que será da blusa...",
+      descricao: "Reunião para decidir o que será da blusa",
     },
     {
       prioridade: 3,
       horario: "12:00",
       title: "Preparar Almoço",
-      descricao: "Reunião para decidir o que será da blusa ...",
+      descricao: "Reunião para decidir o que será da blusa ",
     },
     {
       prioridade: 1,
       horario: "18:00",
-      title: "Arrumar para Fac...",
-      descricao: "Reunião para decidir o que será da blusa...",
+      title: "Arrumar para Faculdade",
+      descricao: "Reunião para decidir o que será da blusa",
     },
     {
       prioridade: 2,
       horario: "18:00",
-      title: "Arrumar para Fac...",
+      title: "Arrumar para Faculdade",
       descricao:
         "So now we know styling the bars. But did you observe that the styles we supply through props are applied to all the bars? What if we want some styles to be applied to only specific bars?",
     },
     {
       prioridade: 1,
       horario: "18:00",
-      title: "Arrumar para Fac...",
-      descricao: "Reunião para decidir o que será da blusa...",
+      title: "Arrumar para Faculdade",
+      descricao: "Reunião para decidir o que será da blusa",
     },
   ];
   return (
