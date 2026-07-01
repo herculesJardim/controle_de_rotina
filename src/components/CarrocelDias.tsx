@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -7,6 +9,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { useSelectedDate } from "../context/selectedDateContext";
 
 const nomesDias = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
 const meses = [
@@ -25,52 +28,100 @@ const meses = [
 ];
 
 export default function CalendarioModerno() {
-  const [dataSelecionada, setDataSelecionada] = useState(new Date());
+  const { selectedDate, setSelectedDate } = useSelectedDate();
   const { width } = useWindowDimensions();
+  const scrollRef = useRef<ScrollView>(null);
+  const [dias, setDias] = useState<Date[]>([]);
 
   const itemWidth = Math.min(72, Math.max(44, width / 7));
 
-  const dias = useMemo(() => {
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
+  const selectedDateObj = useMemo(() => {
+    const date = new Date(selectedDate);
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }, [selectedDate]);
 
-    return Array.from({ length: 31 }, (_, index) => {
-      const data = new Date(hoje);
-      data.setDate(hoje.getDate() + index - 15);
-
-      return {
-        id: data.getTime().toString(),
-        data,
-        diaMes: data.getDate(),
-        diaSemana: nomesDias[data.getDay()],
-      };
+  useEffect(() => {
+    const base = new Date(selectedDateObj);
+    const nextDays = Array.from({ length: 21 }, (_, index) => {
+      const date = new Date(base);
+      date.setDate(base.getDate() + index - 10);
+      return date;
     });
-  }, []);
 
-  const mesmoDia = (a: Date, b: Date) => a.toDateString() === b.toDateString();
+    setDias(nextDays);
+  }, [selectedDateObj]);
+
+  useEffect(() => {
+    if (dias.length === 0) return;
+
+    const selectedIndex = dias.findIndex(
+      (day) => day.toDateString() === selectedDateObj.toDateString(),
+    );
+    const offset = selectedIndex * itemWidth;
+
+    scrollRef.current?.scrollTo({ x: offset, animated: false });
+  }, [dias, itemWidth, selectedDateObj]);
+
+  function addDays(direction: "left" | "right") {
+    setDias((prev) => {
+      const base = direction === "right" ? prev[prev.length - 1] : prev[0];
+      const next = Array.from({ length: 5 }, (_, index) => {
+        const date = new Date(base);
+        date.setDate(
+          base.getDate() + (direction === "right" ? index + 1 : -(index + 1)),
+        );
+        return date;
+      });
+
+      if (direction === "right") {
+        return [...prev, ...next];
+      }
+
+      return [...next, ...prev];
+    });
+  }
+
+  function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
+    const offset = event.nativeEvent.contentOffset.x;
+    const threshold = itemWidth * 5;
+
+    if (offset <= threshold) {
+      addDays("left");
+    }
+
+    if (offset >= (dias.length - 6) * itemWidth - threshold) {
+      addDays("right");
+    }
+  }
+
+  const mesmoDia = (a: Date, b: string) => a.toISOString().slice(0, 10) === b;
 
   return (
     <View style={styles.container}>
       <View style={styles.topo}>
-        <Text style={styles.mes}>{meses[dataSelecionada.getMonth()]}, </Text>
+        <Text style={styles.mes}>{meses[selectedDateObj.getMonth()]}, </Text>
 
-        <Text style={styles.ano}>{dataSelecionada.getFullYear()}</Text>
+        <Text style={styles.ano}>{selectedDateObj.getFullYear()}</Text>
       </View>
 
       <ScrollView
+        ref={scrollRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         snapToInterval={itemWidth}
         decelerationRate="fast"
         contentContainerStyle={styles.lista}
+        onScroll={handleScroll}
+        scrollEventThrottle={200}
       >
-        {dias.map((item) => {
-          const selecionado = mesmoDia(item.data, dataSelecionada);
+        {dias.map((item, index) => {
+          const selecionado = mesmoDia(item, selectedDate);
 
           return (
             <Pressable
-              key={item.id}
-              onPress={() => setDataSelecionada(item.data)}
+              key={`${item.toISOString()}-${index}`}
+              onPress={() => setSelectedDate(item.toISOString().slice(0, 10))}
               style={[
                 styles.card,
                 { width: itemWidth },
@@ -83,13 +134,13 @@ export default function CalendarioModerno() {
                   selecionado && styles.textoSelecionado,
                 ]}
               >
-                {item.diaSemana}
+                {nomesDias[item.getDay()]}
               </Text>
 
               <Text
                 style={[styles.diaMes, selecionado && styles.textoSelecionado]}
               >
-                {item.diaMes}
+                {item.getDate()}
               </Text>
             </Pressable>
           );
@@ -135,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    height: 75           ,
+    height: 75,
 
     borderRadius: 12,
 

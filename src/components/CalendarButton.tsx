@@ -2,10 +2,11 @@ import Feather from "@expo/vector-icons/Feather";
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { useSelectedDate } from "../context/selectedDateContext";
 
 export function CalendarButton() {
   const [visible, setVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const { selectedDate, setSelectedDate } = useSelectedDate();
 
   return (
     <>
