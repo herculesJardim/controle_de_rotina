@@ -12,12 +12,12 @@ export default function RootLayout() {
       >
         <Stack.Screen
           name="index"
-          options={{
+        />
+        <Stack.Screen name="home"  options={{
             header: () => (
               <Cabecalho cabecalho={{ title: "Gerenciador Diário" }} />
             ),
-          }}
-        />
+          }}/>
         <Stack.Screen
           name="cadastro_tarefa"
           options={{

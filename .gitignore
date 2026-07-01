@@ -44,3 +44,7 @@ app-example
 
 #teste files
 src/components/Carrocel.tsx
+
+#chave do supabase
+/senha.env
+.env
