@@ -1,12 +1,58 @@
 import Feather from "@expo/vector-icons/Feather";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { useSelectedDate } from "../context/selectedDateContext";
+import { getTasks } from "../lib/tasks";
 
 export function CalendarButton() {
   const [visible, setVisible] = useState(false);
+  const [taskDates, setTaskDates] = useState<Record<string, any>>({});
   const { selectedDate, setSelectedDate } = useSelectedDate();
+
+  async function loadTaskDates() {
+    try {
+      const tasks = await getTasks();
+      const dates = tasks.reduce<Record<string, any>>((acc, task) => {
+        if (task.task_date) {
+          acc[task.task_date] = {
+            marked: true,
+            dotColor: "#22CC41",
+            textColor: "#22CC41",
+          };
+        }
+        return acc;
+      }, {});
+
+      setTaskDates(dates);
+    } catch {
+      setTaskDates({});
+    }
+  }
+
+  useEffect(() => {
+    void loadTaskDates();
+  }, []);
+
+  useEffect(() => {
+    if (visible) {
+      void loadTaskDates();
+    }
+  }, [visible]);
+
+  const markedDates = {
+    ...taskDates,
+    ...(selectedDate
+      ? {
+          [selectedDate]: {
+            ...(taskDates[selectedDate] ?? {}),
+            selected: true,
+            selectedColor: "#B75A3A",
+            selectedTextColor: "#FFFFFF",
+          },
+        }
+      : {}),
+  };
 
   return (
     <>
@@ -35,16 +81,7 @@ export function CalendarButton() {
                 setSelectedDate(day.dateString);
                 setVisible(false);
               }}
-              markedDates={
-                selectedDate
-                  ? {
-                      [selectedDate]: {
-                        selected: true,
-                        selectedColor: "#B75A3A",
-                      },
-                    }
-                  : {}
-              }
+              markedDates={markedDates}
               theme={{
                 todayTextColor: "#B75A3A",
                 arrowColor: "#B75A3A",

@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Alert,
-    Button,
     FlatList,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -54,7 +54,9 @@ export default function Home() {
 
   return (
     <SafeAreaView style={style.container}>
-      <Button title="Sair" onPress={handleLogout} />
+      <TouchableOpacity style={style.button} onPress={handleLogout}>
+        <Text style={style.buttonText}>Sair</Text>
+      </TouchableOpacity>
       <View style={style.content}>
         <View style={style.dias}>
           <CarrocelDias />
@@ -132,5 +134,20 @@ const style = StyleSheet.create({
     color: "#4b5563",
     fontSize: 13,
     marginTop: 2,
+  },
+  button: {
+    position: "absolute",
+    top: 5,
+    right: 15,
+    backgroundColor: "#af1b1b",
+    borderRadius: 4,
+    width: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 4,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 12,
   },
 });
