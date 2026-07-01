@@ -1,14 +1,7 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { supabase } from "../src/lib/supabase";
 
@@ -17,6 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSignIn() {
     const cleanedEmail = email.trim().toLowerCase();
@@ -87,49 +81,61 @@ export default function Login() {
   return (
     <SafeAreaView style={style.container}>
       <View style={style.form}>
-        <Text>E-mail</Text>
+        <Text style={style.title}>Gestor de Tarefas</Text>
 
         <TextInput
+          mode="outlined"
+          label="E-mail"
           value={email}
           onChangeText={setEmail}
           placeholder="seuemail@email.com"
           autoCapitalize="none"
           keyboardType="email-address"
-          style={{
-            borderWidth: 1,
-            borderColor: "#ccc",
-            padding: 12,
-            borderRadius: 8,
-          }}
+          style={style.input}
+          outlineStyle={{ borderWidth: 1, borderColor: "#197293" }}
         />
 
-        <Text>Senha</Text>
-
         <TextInput
+          mode="outlined"
+          label="Senha"
           value={password}
           onChangeText={setPassword}
           placeholder="Sua senha"
-          secureTextEntry
+          secureTextEntry={!showPassword}
           onSubmitEditing={handleSignIn}
           returnKeyType="done"
-          style={{
-            borderWidth: 1,
-            borderColor: "#ccc",
-            padding: 12,
-            borderRadius: 8,
-          }}
+          style={style.input}
+          outlineStyle={{ borderWidth: 1, borderColor: "#197293" }}
+          right={
+            <TextInput.Icon
+              icon={showPassword ? "eye-off" : "eye"}
+              onPress={() => setShowPassword((prev) => !prev)}
+              forceTextInputFocus={false}
+            />
+          }
         />
 
         {loading ? (
-          <ActivityIndicator />
+          <ActivityIndicator size="large" color="#197293" />
         ) : (
           <>
-            <Button title="Entrar" onPress={handleSignIn} disabled={loading} />
             <Button
-              title="Criar conta"
+              mode="contained"
+              buttonColor="#197293"
+              textColor="#fff"
+              onPress={handleSignIn}
+              disabled={loading}
+            >
+              Entrar
+            </Button>
+            <Button
+              mode="outlined"
+              textColor="#197293"
               onPress={signUpWithEmail}
               disabled={loading}
-            />
+            >
+              Criar conta
+            </Button>
           </>
         )}
       </View>
@@ -147,5 +153,23 @@ const style = StyleSheet.create({
     padding: 24,
     gap: 12,
     alignSelf: "stretch",
+    backgroundColor: "#fff",
+    marginHorizontal: 24,
+    borderRadius: 16,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#197293",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  input: {
+    backgroundColor: "#fff",
   },
 });
