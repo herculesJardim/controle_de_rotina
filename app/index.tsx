@@ -1,36 +1,35 @@
-import { useEffect, useState } from 'react'
-import { View, ActivityIndicator } from 'react-native'
-import { router } from 'expo-router'
-import { Session } from '@supabase/supabase-js'
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 
-import { supabase } from '../src/lib/supabase'
+import { supabase } from "../src/lib/supabase";
 
 export default function Index() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkSession() {
-      const { data } = await supabase.auth.getSession()
+      const { data } = await supabase.auth.getSession();
 
       if (data.session) {
-        router.replace('/home')
+        router.replace("/home");
       } else {
-        router.replace('/login')
+        router.replace("/login");
       }
 
-      setLoading(false)
+      setLoading(false);
     }
 
-    checkSession()
-  }, [])
+    checkSession();
+  }, []);
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
         <ActivityIndicator />
       </View>
-    )
+    );
   }
 
-  return null
+  return null;
 }

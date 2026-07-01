@@ -1,17 +1,36 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Checkbox, Text } from "react-native-paper";
+import { TaskRecurrence } from "../tipos/types";
 
-export default function RecurrenceSelector() {
-  const [enabled, setEnabled] = useState(false);
+type Props = {
+  value?: TaskRecurrence;
+  onChange?: (value: TaskRecurrence) => void;
+};
 
-  const [daily, setDaily] = useState(false);
-  const [weekly, setWeekly] = useState(false);
-  const [monthly, setMonthly] = useState(false);
+export default function RecurrenceSelector({
+  value = "nenhuma",
+  onChange,
+}: Props) {
+  const [enabled, setEnabled] = useState(value !== "nenhuma");
+
+  function updateSelection(next: TaskRecurrence) {
+    onChange?.(next);
+  }
+
+  function toggleOption(option: TaskRecurrence) {
+    if (value === option) {
+      setEnabled(false);
+      updateSelection("nenhuma");
+      return;
+    }
+
+    setEnabled(true);
+    updateSelection(option);
+  }
 
   return (
     <View style={{ padding: 20 }}>
-      {/* Checkbox principal */}
       <View
         style={{
           flexDirection: "row",
@@ -20,7 +39,13 @@ export default function RecurrenceSelector() {
       >
         <Checkbox
           status={enabled ? "checked" : "unchecked"}
-          onPress={() => setEnabled(!enabled)}
+          onPress={() => {
+            const nextEnabled = !enabled;
+            setEnabled(nextEnabled);
+            if (!nextEnabled) {
+              updateSelection("nenhuma");
+            }
+          }}
           color="#197293"
           uncheckedColor="#197293"
         />
@@ -35,7 +60,6 @@ export default function RecurrenceSelector() {
         </Text>
       </View>
 
-      {/* Opções */}
       {enabled && (
         <View
           style={{
@@ -46,24 +70,24 @@ export default function RecurrenceSelector() {
         >
           <Checkbox.Item
             label="Diária"
-            status={daily ? "checked" : "unchecked"}
-            onPress={() => setDaily(!daily)}
+            status={value === "diaria" ? "checked" : "unchecked"}
+            onPress={() => toggleOption("diaria")}
             color="#197293"
             labelStyle={{ color: "#197293" }}
           />
 
           <Checkbox.Item
             label="Semanal"
-            status={weekly ? "checked" : "unchecked"}
-            onPress={() => setWeekly(!weekly)}
+            status={value === "semanal" ? "checked" : "unchecked"}
+            onPress={() => toggleOption("semanal")}
             color="#197293"
             labelStyle={{ color: "#197293" }}
           />
 
           <Checkbox.Item
             label="Mensal"
-            status={monthly ? "checked" : "unchecked"}
-            onPress={() => setMonthly(!monthly)}
+            status={value === "mensal" ? "checked" : "unchecked"}
+            onPress={() => toggleOption("mensal")}
             color="#197293"
             labelStyle={{ color: "#197293" }}
           />

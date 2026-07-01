@@ -1,9 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function TimePickerCustom() {
+type TimePickerCustomProps = {
+  value?: string | null;
+  onChange?: (value: string) => void;
+};
+
+function parseTimeParts(value?: string | null) {
+  if (!value) {
+    return { hour: "20", minute: "00" };
+  }
+
+  const trimmed = value.trim();
+  const match = /^([0-9]{1,2})[:.\-]([0-9]{1,2})/.exec(trimmed);
+
+  if (!match) {
+    return { hour: "20", minute: "00" };
+  }
+
+  return {
+    hour: String(Math.min(23, Math.max(0, Number(match[1])))).padStart(2, "0"),
+    minute: String(Math.min(59, Math.max(0, Number(match[2])))).padStart(
+      2,
+      "0",
+    ),
+  };
+}
+
+function onlyTwoDigits(value: string) {
+  return value.replace(/\D/g, "").slice(0, 2);
+}
+
+function formatHour(value: string) {
+  const digits = onlyTwoDigits(value);
+
+  if (!digits) return "00";
+
+  const number = Number(digits);
+
+  return String(Math.min(23, Math.max(0, number))).padStart(2, "0");
+}
+
+function formatMinute(value: string) {
+  const digits = onlyTwoDigits(value);
+
+  if (!digits) return "00";
+
+  const number = Number(digits);
+
+  return String(Math.min(59, Math.max(0, number))).padStart(2, "0");
+}
+
+export default function TimePickerCustom({
+  value,
+  onChange,
+}: TimePickerCustomProps) {
   const [hour, setHour] = useState("20");
   const [minute, setMinute] = useState("00");
+
+  useEffect(() => {
+    const parsed = parseTimeParts(value);
+    setHour(parsed.hour);
+    setMinute(parsed.minute);
+  }, [value]);
+
+  function handleHourChange(text: string) {
+    const nextHour = onlyTwoDigits(text);
+    setHour(nextHour);
+  }
+
+  function handleMinuteChange(text: string) {
+    const nextMinute = onlyTwoDigits(text);
+    setMinute(nextMinute);
+  }
+
+  function applyFormattedTime() {
+    const formattedHour = formatHour(hour);
+    const formattedMinute = formatMinute(minute);
+
+    setHour(formattedHour);
+    setMinute(formattedMinute);
+
+    onChange?.(`${formattedHour}:${formattedMinute}`);
+  }
 
   return (
     <View style={styles.container}>
@@ -13,11 +92,13 @@ export default function TimePickerCustom() {
         <View style={styles.box}>
           <TextInput
             value={hour}
-            onChangeText={setHour}
+            onChangeText={handleHourChange}
+            onBlur={applyFormattedTime}
             keyboardType="numeric"
             maxLength={2}
             style={styles.input}
           />
+
           <Text style={styles.subLabel}>Hora</Text>
         </View>
 
@@ -26,11 +107,13 @@ export default function TimePickerCustom() {
         <View style={styles.box}>
           <TextInput
             value={minute}
-            onChangeText={setMinute}
+            onChangeText={handleMinuteChange}
+            onBlur={applyFormattedTime}
             keyboardType="numeric"
             maxLength={2}
             style={styles.input}
           />
+
           <Text style={styles.subLabel}>Minutos</Text>
         </View>
       </View>

@@ -2,13 +2,45 @@ import Adicionar from "@/src/components/Adicionar";
 import CarrocelDias from "@/src/components/CarrocelDias";
 import Progresso from "@/src/components/Progresso";
 import Tarefa from "@/src/components/Tarefa";
+import { useSelectedDate } from "@/src/context/selectedDateContext";
+import { formatDateForDisplay } from "@/src/lib/formatters";
+import { getTasks } from "@/src/lib/tasks";
 import { TarefaType } from "@/src/tipos/types";
 import { router } from "expo-router";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+    ActivityIndicator,
+    Alert,
+    Button,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { supabase } from "../src/lib/supabase";
-import { Button } from "react-native";
+
 export default function Home() {
+  const [tarefas, setTarefas] = useState<TarefaType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { selectedDate } = useSelectedDate();
+
+  async function loadTasks() {
+    try {
+      setLoading(true);
+      const data = await getTasks();
+      setTarefas(data);
+    } catch {
+      Alert.alert("Erro", "Não foi possível carregar as tarefas.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
   async function handleLogout() {
     const { error } = await supabase.auth.signOut();
 
@@ -20,58 +52,42 @@ export default function Home() {
     router.replace("/login");
   }
 
-  const tarefas: TarefaType[] = [
-    {
-      prioridade: 2,
-      horario: "10:00",
-      title: "Reunião da Turma",
-      descricao: "Reunião para decidir o que será da blusa",
-    },
-    {
-      prioridade: 3,
-      horario: "12:00",
-      title: "Preparar Almoço",
-      descricao: "Reunião para decidir o que será da blusa ",
-    },
-    {
-      prioridade: 1,
-      horario: "18:00",
-      title: "Arrumar para Faculdade",
-      descricao: "Reunião para decidir o que será da blusa",
-    },
-    {
-      prioridade: 2,
-      horario: "18:00",
-      title: "Arrumar para Faculdade",
-      descricao:
-        "So now we know styling the bars. But did you observe that the styles we supply through props are applied to all the bars? What if we want some styles to be applied to only specific bars?",
-    },
-    {
-      prioridade: 1,
-      horario: "18:00",
-      title: "Arrumar para Faculdade",
-      descricao: "Reunião para decidir o que será da blusa",
-    },
-  ];
   return (
     <SafeAreaView style={style.container}>
-        <Button title="Sair" onPress={handleLogout} />
+      <Button title="Sair" onPress={handleLogout} />
       <View style={style.content}>
         <View style={style.dias}>
           <CarrocelDias />
         </View>
-        <Progresso tarefa={{ tarefasFeitas: 9, tarefasTotais: 20 }} />
+        <Progresso
+          tarefa={{
+            tarefasFeitas: tarefas.filter((task) => task.is_done).length,
+            tarefasTotais: tarefas.length,
+          }}
+        />
         <View style={style.label}>
           <Text style={style.labelText}>Minhas Tarefas</Text>
+          <Text style={style.dateText}>
+            {formatDateForDisplay(selectedDate)}
+          </Text>
         </View>
-        <FlatList
-          style={{ flex: 1, width: "95%" }}
-          contentContainerStyle={{ gap: 5 }}
-          showsVerticalScrollIndicator={false}
-          data={tarefas}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <Tarefa tarefa={item} />}
-        />
+        {loading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            style={{ flex: 1, width: "95%" }}
+            contentContainerStyle={{ gap: 5 }}
+            showsVerticalScrollIndicator={false}
+            data={tarefas.filter((task) => task.task_date === selectedDate)}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Tarefa tarefa={item} onChange={loadTasks} />
+            )}
+            ListEmptyComponent={
+              <Text>Nenhuma tarefa cadastrada para esta data.</Text>
+            }
+          />
+        )}
         <Adicionar />
       </View>
     </SafeAreaView>
@@ -111,5 +127,10 @@ const style = StyleSheet.create({
   labelText: {
     color: "#000000",
     fontSize: 16,
+  },
+  dateText: {
+    color: "#4b5563",
+    fontSize: 13,
+    marginTop: 2,
   },
 });

@@ -8,6 +8,7 @@ export default function Progresso({ tarefa }: ProgressoProps) {
   const aFazer = tarefa.tarefasTotais - tarefa.tarefasFeitas;
   const porcentagemFeita = (tarefa.tarefasFeitas / tarefa.tarefasTotais) * 100;
   const porcentagemAFazer = (aFazer / tarefa.tarefasTotais) * 100;
+  const porcentagemFeitaFormatada = porcentagemFeita.toFixed(2);
   const pieData = [
     {
       value: porcentagemFeita,
@@ -31,7 +32,7 @@ export default function Progresso({ tarefa }: ProgressoProps) {
           centerLabelComponent={() => {
             return (
               <Text style={{ fontSize: 18, color: "#ff5c00" }}>
-                {porcentagemFeita}%
+                {porcentagemFeitaFormatada}%
               </Text>
             );
           }}
